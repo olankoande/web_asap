@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(find c:asapjoinweb/src -type f -name *Admin* -o -name *admin*)",
+      "Bash(grep -r \"admin\\\\|Admin\" c:asapjoinweb/src --include=*.tsx --include=*.ts)",
+      "Read(//c/asapjoin//**)",
+      "Read(//c/asapjoin/**)",
+      "Bash(find /c/asapjoin/admin/src -type f \\\\\\(-name *.tsx -o -name *.ts \\\\\\))"
+    ]
+  }
+}
