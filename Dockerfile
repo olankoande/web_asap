@@ -8,7 +8,9 @@ RUN npm install
 
 COPY . .
 
-ARG VITE_API_URL=https://asapbackend.kikandi.com/api/v1
+# URL relative : le navigateur appelle /api/v1/... sur le même domaine
+# nginx proxifie ensuite vers asapbackend.kikandi.com
+ARG VITE_API_URL=/api/v1
 ARG VITE_STRIPE_PUBLIC_KEY=pk_test_51T6h17DwdNKzEorh9G4Ddt1BEZ0MOLLpqZEIlagIxaoWT256h6Z24PMCfchRkHpGDkjzXVLEPsQcGQroa0DdgrVN00BAQX77lg
 ARG VITE_ORS_API_KEY=5b3ce3597851110001cf62482cab2a39fc5045f585d16c83fd89a31d
 
