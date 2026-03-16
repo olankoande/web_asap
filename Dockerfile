@@ -1,4 +1,4 @@
-# Étape 1: Build de l'application React
+# ─── Étape 1 : Build ───────────────────────────────────────────────────────────
 FROM node:20-alpine AS build
 
 WORKDIR /app
@@ -8,20 +8,17 @@ RUN npm install
 
 COPY . .
 
-# Injection de l'URL de l'API au moment du build
-# Si non fourni, l'app utilisera le fallback '/api/v1' (proxifié par nginx vers le backend)
-ARG VITE_API_URL
+ARG VITE_API_URL=https://asapbackend.kikandi.com/api/v1
+ARG VITE_STRIPE_PUBLIC_KEY=pk_test_51T6h17DwdNKzEorh9G4Ddt1BEZ0MOLLpqZEIlagIxaoWT256h6Z24PMCfchRkHpGDkjzXVLEPsQcGQroa0DdgrVN00BAQX77lg
+ARG VITE_ORS_API_KEY=5b3ce3597851110001cf62482cab2a39fc5045f585d16c83fd89a31d
+
 ENV VITE_API_URL=$VITE_API_URL
-
-ARG VITE_STRIPE_PUBLIC_KEY
 ENV VITE_STRIPE_PUBLIC_KEY=$VITE_STRIPE_PUBLIC_KEY
-
-ARG VITE_ORS_API_KEY
 ENV VITE_ORS_API_KEY=$VITE_ORS_API_KEY
 
 RUN npm run build
 
-# Étape 2: Service avec Nginx
+# ─── Étape 2 : Serve avec Nginx ────────────────────────────────────────────────
 FROM nginx:1.25-alpine
 
 COPY --from=build /app/dist /usr/share/nginx/html
